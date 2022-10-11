@@ -3,6 +3,7 @@ module.exports.createThread = async (req, res, next) => {
     try {
         const newThread = new Thread({
             userID: req.decoded.userId,
+            name: req.body.name,
             description: req.body.description,
             price: req.body.price
         });
@@ -17,7 +18,16 @@ module.exports.createThread = async (req, res, next) => {
         res.json(error)
     }
 }
+module.exports.getMyThreads = async (req, res, next) => {
+    Thread.find({userID: req.decoded.userId}, (err, threads) => {
+        if (err) return next(err);
+        res.json(threads);
+    })
+}
 
-module.exports.getThreads = async (req, res, next) => {
-
+module.exports.getAllThreads = async (req, res, next) => {
+    Thread.find({}, (err, threads) => {
+        if (err) return next(err);
+        res.json(threads);
+    })
 }

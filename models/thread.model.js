@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const ThreadSchema = new Schema({
     userID: { type: String, ref: 'User' },
+    name: String,
     images: [{ type: String }],
     description: String,
     price: Number,
